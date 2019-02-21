@@ -29,7 +29,7 @@ const App = () => {
     if (hostId) {
       const hostUrl = await getHostUrl(hostId)
 
-      if (hostUrl) set('hostUrl', hostUrl)
+      if (hostUrl) await set('hostUrl', hostUrl)
 
       setQRCode(hostId)
     }
