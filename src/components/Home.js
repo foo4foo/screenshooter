@@ -10,9 +10,8 @@ import {
   Dimensions
 } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
+import { get } from '../lib/storage'
 import photo from '../../assets/images/photo.png'
-
-const API_URL = 'https://170e89e7.ngrok.io'
 
 const SCREEN_WIDTH = Dimensions.get('screen').width
 
@@ -20,28 +19,32 @@ const Home = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [screenshots, setScreenshots] = useState([])
-  const [activeSlide, setActiveSlide] = useState(1)
+  const [activeSlide, setActiveSlide] = useState(0)
 
   const takeScreenshoot = async () => {
     setLoading(true)
 
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
+    const API_URL = await get('hostUrl', '')
+
+    if (API_URL) {
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+
+        if (response.status !== 200) throw Error('Something went wrong')
+
+        const { successful, url } = await response.json()
+
+        if (successful && !!url) {
+          setScreenshots([...screenshots, `${API_URL}${url}`])
         }
-      })
-
-      if (response.status !== 200) throw Error('Something went wrong')
-
-      const { successful, url } = await response.json()
-
-      if (successful && !!url) {
-        setScreenshots([...screenshots, `${API_URL}${url}`])
+      } catch (error) {
+        setError(error.message)
       }
-    } catch (error) {
-      setError(error.message)
     }
     setLoading(false)
   }
