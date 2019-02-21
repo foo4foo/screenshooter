@@ -1,8 +1,7 @@
-// @flow
-
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { RNCamera } from 'react-native-camera'
+// @flow
 
 type Props = {
   onBarCodeRead: Function

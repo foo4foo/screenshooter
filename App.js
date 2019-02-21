@@ -1,13 +1,10 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
- * @flow
  */
 if (__DEV__) {
   import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
 }
+// @flow
 import React, { useState } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import Home from './src/components/Home'

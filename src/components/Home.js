@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react'
 import {
   ActivityIndicator,
@@ -12,7 +11,7 @@ import {
 import Carousel from 'react-native-snap-carousel'
 import { get } from '../lib/storage'
 import photo from '../../assets/images/photo.png'
-
+// @flow
 const SCREEN_WIDTH = Dimensions.get('screen').width
 
 const Home = () => {

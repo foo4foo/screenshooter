@@ -15,7 +15,7 @@
 
 ; Ignore polyfills
 .*/Libraries/polyfills/.*
-
+.*/node_modules/.*
 ; Ignore metro
 .*/node_modules/metro/.*
 
