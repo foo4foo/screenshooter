@@ -9,6 +9,7 @@ import {
   Dimensions
 } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
+import ScreenshotCard from './ScreenshotCard'
 import { get } from '../lib/storage'
 import photo from '../../assets/images/photo.png'
 // @flow
@@ -48,19 +49,6 @@ const Home = () => {
     setLoading(false)
   }
 
-  // move to separate component ScreenshotCard.js
-  const renderScreenshot = ({ item }) => (
-    <Image
-      key={item}
-      source={{ uri: item }}
-      resizeMode="contain"
-      style={{
-        width: SCREEN_WIDTH - SCREEN_WIDTH / 10,
-        height: 200
-      }}
-    />
-  )
-
   return (
     <View style={styles.container}>
       {loading ? (
@@ -81,7 +69,13 @@ const Home = () => {
             hasParallaxImages
             containerCustomStyle={styles.slider}
             data={screenshots}
-            renderItem={renderScreenshot}
+            renderItem={({ item }) => (
+              <ScreenshotCard
+                key={item}
+                item={item}
+                screenWidth={SCREEN_WIDTH}
+              />
+            )}
             sliderWidth={SCREEN_WIDTH}
             itemWidth={SCREEN_WIDTH - SCREEN_WIDTH / 10}
             onSnapToItem={(index) => {
