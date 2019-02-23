@@ -19,22 +19,24 @@ const App = () => {
   const [loading, setLoading] = useState(true)
   const [QRCode, setQRCode] = useState('')
 
-  useEffectAsync(async () => {
-    await signIn()
+  useEffectAsync(
+    async (): void => {
+      await signIn()
 
-    const hostId = await get('hostId', '')
+      const hostId = await get('hostId', '')
 
-    if (hostId) {
-      const hostUrl = await getHostUrl(hostId)
+      if (hostId) {
+        const hostUrl = await getHostUrl(hostId)
 
-      if (hostUrl) await set('hostUrl', hostUrl)
+        if (hostUrl) await set('hostUrl', hostUrl)
 
-      setQRCode(hostId)
+        setQRCode(hostId)
+      }
+      setLoading(false)
     }
-    setLoading(false)
-  })
+  )
 
-  const onBarCodeRead = (e) => {
+  const onBarCodeRead = (e: Object): void => {
     setQRCode(e.data)
     set('hostId', e.data)
   }

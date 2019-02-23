@@ -21,7 +21,7 @@ const Home = () => {
   const [screenshots, setScreenshots] = useState([])
   const [activeSlide, setActiveSlide] = useState(0)
 
-  const takeScreenshoot = async () => {
+  const takeScreenshoot = async (): void => {
     setLoading(true)
 
     const API_URL = await get('hostUrl', '')
