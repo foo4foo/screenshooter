@@ -4,7 +4,7 @@ import { RNCamera } from 'react-native-camera'
 // @flow
 
 type Props = {
-  onBarCodeRead: Function
+  onBarCodeRead?: Function
 }
 
 const QRScanner = (props: Props) => {

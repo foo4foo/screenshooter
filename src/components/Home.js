@@ -41,26 +41,25 @@ const Home = () => {
         if (successful && !!url) {
           setScreenshots([...screenshots, `${API_URL}${url}`])
         }
-      } catch (error) {
-        setError(error.message)
+      } catch (err) {
+        setError(err.message)
       }
     }
     setLoading(false)
   }
 
-  const renderScreenshot = ({ item }) => {
-    return (
-      <Image
-        key={item}
-        source={{ uri: item }}
-        resizeMode="contain"
-        style={{
-          width: SCREEN_WIDTH - SCREEN_WIDTH / 10,
-          height: 200
-        }}
-      />
-    )
-  }
+  // move to separate component ScreenshotCard.js
+  const renderScreenshot = ({ item }) => (
+    <Image
+      key={item}
+      source={{ uri: item }}
+      resizeMode="contain"
+      style={{
+        width: SCREEN_WIDTH - SCREEN_WIDTH / 10,
+        height: 200
+      }}
+    />
+  )
 
   return (
     <View style={styles.container}>
@@ -74,12 +73,12 @@ const Home = () => {
       {screenshots.length > 0 && (
         <>
           <Carousel
-            layout={'tinder'}
+            layout="tinder"
             layoutCardOffset={9}
             firstItem={screenshots.length - 1}
             inactiveSlideScale={0.94}
             inactiveSlideOpacity={0.7}
-            hasParallaxImages={true}
+            hasParallaxImages
             containerCustomStyle={styles.slider}
             data={screenshots}
             renderItem={renderScreenshot}
@@ -88,7 +87,7 @@ const Home = () => {
             onSnapToItem={(index) => {
               setActiveSlide(index)
             }}
-            enableMomentum={true}
+            enableMomentum
           />
         </>
       )}

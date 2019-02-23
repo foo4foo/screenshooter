@@ -4,10 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "eslint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.0.1",
+    "appcenter": "1.12.2",
+    "appcenter-analytics": "1.12.2",
+    "appcenter-crashes": "1.12.2",
     "react": "16.8.1",
     "react-native": "0.59.0-rc.2",
     "react-native-camera": "^1.12.0",
@@ -17,7 +21,13 @@
   "devDependencies": {
     "@babel/core": "^7.3.3",
     "@babel/runtime": "^7.3.1",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "jest": "^24.1.0",
     "metro-react-native-babel-preset": "^0.52.0",
     "react-test-renderer": "16.8.1",

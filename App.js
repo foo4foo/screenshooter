@@ -1,10 +1,6 @@
 /**
  * @format
  */
-if (__DEV__) {
-  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
-}
-// @flow
 import React, { useState } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import Home from './src/components/Home'
@@ -13,6 +9,11 @@ import { useEffectAsync } from './src/lib/utils'
 import QRScanner from './src/components/QRScanner'
 import { getHostUrl } from './src/lib/db'
 import { signIn } from './src/lib/auth'
+// @flow
+
+if (__DEV__) {
+  import('./ReactotronConfig')
+}
 
 const App = () => {
   const [loading, setLoading] = useState(true)
