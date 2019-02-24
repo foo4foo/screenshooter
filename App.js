@@ -1,7 +1,7 @@
 /**
  * @format
  */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import Home from './src/components/Home'
@@ -12,7 +12,7 @@ import { getHostUrl } from './src/lib/db'
 import { signIn } from './src/lib/auth'
 // @flow
 
-if (__DEV__ && !__TEST__) {
+if (__DEV__) {
   import('./ReactotronConfig')
 }
 
@@ -20,22 +20,20 @@ const App = () => {
   const [loading, setLoading] = useState(true)
   const [QRCode, setQRCode] = useState('')
 
-  useEffectAsync(
-    async (): void => {
-      await signIn()
+  useEffectAsync(async (): void => {
+    await signIn()
 
-      const hostId = await get('hostId', '')
+    const hostId = await get('hostId', '')
 
-      if (hostId) {
-        const hostUrl = await getHostUrl(hostId)
+    if (hostId) {
+      const hostUrl = await getHostUrl(hostId)
 
-        if (hostUrl) await set('hostUrl', hostUrl)
+      if (hostUrl) await set('hostUrl', hostUrl)
 
-        setQRCode(hostId)
-      }
-      setLoading(false)
+      setQRCode(hostId)
     }
-  )
+    setLoading(false)
+  }, [])
 
   const onBarCodeRead = (e: Object): void => {
     setQRCode(e.data)
@@ -44,10 +42,7 @@ const App = () => {
 
   return (
     <View
-      style={[
-        styles.container,
-        QRCode ? { alignItems: 'center', justifyContent: 'center' } : {}
-      ]}
+      style={[styles.container, QRCode ? { alignItems: 'center', justifyContent: 'center' } : {}]}
     >
       {loading ? (
         <View style={styles.loadingContainer}>

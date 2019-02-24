@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier"],
   "parser": "babel-eslint",
   "env": {
     "node": true,
@@ -8,9 +8,11 @@
     "jest": true
   },
   "plugins": [
-    "react-hooks"
+    "react-hooks",
+    "prettier"
   ],
   "rules": {
+    "prettier/prettier": ["error"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "implicit-arrow-linebreak": "off",
     "no-extra-semi":"off",
@@ -19,6 +21,7 @@
     "indent": "off",
     "no-trailing-spaces": "off",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
+    "react/jsx-wrap-multilines": ["error", {"declaration": false, "assignment": false}],
     "no-use-before-define": 0,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error"
