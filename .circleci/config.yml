@@ -27,6 +27,8 @@ jobs:
 
       - run:
           name: jest tests
+          environment:
+            __TEST__: true
           command: |
             mkdir -p test-results/jest
             yarn jest --clearCache

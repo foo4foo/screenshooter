@@ -1,7 +1,7 @@
 /**
  * @format
  */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import Home from './src/components/Home'
@@ -12,7 +12,7 @@ import { getHostUrl } from './src/lib/db'
 import { signIn } from './src/lib/auth'
 // @flow
 
-if (__DEV__) {
+if (__DEV__ && !__TEST__) {
   import('./ReactotronConfig')
 }
 
