@@ -1,8 +1,9 @@
 /**
  * @format
  */
-import React, { useState } from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View } from 'react-native'
+import Spinner from 'react-native-spinkit'
 import Home from './src/components/Home'
 import { get, set } from './src/lib/storage'
 import { useEffectAsync } from './src/lib/utils'
@@ -11,7 +12,7 @@ import { getHostUrl } from './src/lib/db'
 import { signIn } from './src/lib/auth'
 // @flow
 
-if (__DEV__) {
+if (__DEV__ && !__TEST__) {
   import('./ReactotronConfig')
 }
 
@@ -50,7 +51,7 @@ const App = () => {
     >
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="grey" />
+          <Spinner isVisible size={60} type="Wave" color="#0a1854" />
         </View>
       ) : (
         <>{QRCode ? <Home /> : <QRScanner onBarCodeRead={onBarCodeRead} />}</>
@@ -61,11 +62,12 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#0a1854'
+    flex: 1
   },
   loadingContainer: {
-    justifyContent: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

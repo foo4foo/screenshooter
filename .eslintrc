@@ -21,9 +21,10 @@
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
     "no-use-before-define": 0,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warning"
+    "react-hooks/exhaustive-deps": "error"
   },
   "globals": {
-    "__DEV__": false
+    "__DEV__": false,
+    "__TEST__": false
   }
 }

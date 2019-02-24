@@ -16,7 +16,8 @@
     "react-native": "0.59.0-rc.2",
     "react-native-camera": "^1.12.0",
     "react-native-firebase": "^5.2.2",
-    "react-native-snap-carousel": "^3.7.5"
+    "react-native-snap-carousel": "^3.7.5",
+    "react-native-spinkit": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
@@ -35,6 +36,16 @@
     "reactotron-react-native": "^2.1.7"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "globals": {
+      "__TEST__": true
+    },
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/?!(react-icons)",
+      "ReactotronConfig.js"
+    ]
   }
 }
