@@ -1,26 +1,29 @@
 {
   "extends": "airbnb",
   "parser": "babel-eslint",
-  "env":
-    {
-      "node": true,
-      "es6": true,
-      "browser": true,
-      "jest": true
-    },
-  "rules":
-    {
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "implicit-arrow-linebreak": "off",
-      "no-extra-semi":"off",
-      "semi":"off",
-      "comma-dangle": "off",
-      "indent": "off",
-      "no-trailing-spaces": "off",
-      "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
-      "no-use-before-define": 0
-    },
-    "globals": {
-      "__DEV__": false
-    }
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "implicit-arrow-linebreak": "off",
+    "no-extra-semi":"off",
+    "semi":"off",
+    "comma-dangle": "off",
+    "indent": "off",
+    "no-trailing-spaces": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
+    "no-use-before-define": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warning"
+  },
+  "globals": {
+    "__DEV__": false
   }
+}
