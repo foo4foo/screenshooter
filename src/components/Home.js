@@ -1,25 +1,43 @@
 import React, { useState } from 'react'
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Text,
-  Dimensions
-} from 'react-native'
-import Carousel from 'react-native-snap-carousel'
+import { Animated, View, StyleSheet, TouchableOpacity, Image, Text, Dimensions } from 'react-native'
 import Spinner from 'react-native-spinkit'
+import { ParallaxSwiper, ParallaxSwiperPage } from 'react-native-parallax-swiper'
 import ScreenshotCard from './ScreenshotCard'
 import { get } from '../lib/storage'
 import photo from '../../assets/images/photo.png'
 // @flow
-const SCREEN_WIDTH = Dimensions.get('screen').width
+
+const { width, height } = Dimensions.get('window')
 
 const Home = () => {
+  const animatedValue = new Animated.Value(0)
+
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [screenshots, setScreenshots] = useState([])
-  const [activeSlide, setActiveSlide] = useState(0)
+
+  const getPageTransformStyle = (index) => ({
+    transform: [
+      {
+        scale: animatedValue.interpolate({
+          inputRange: [
+            (index - 1) * (width + 8), // Add 8 for dividerWidth
+            index * (width + 8),
+            (index + 1) * (width + 8)
+          ],
+          outputRange: [0, 1, 0],
+          extrapolate: 'clamp'
+        })
+      },
+      {
+        rotate: animatedValue.interpolate({
+          inputRange: [(index - 1) * (width + 8), index * (width + 8), (index + 1) * (width + 8)],
+          outputRange: ['180deg', '0deg', '-180deg'],
+          extrapolate: 'clamp'
+        })
+      }
+    ]
+  })
 
   const takeScreenshoot = async (): void => {
     setLoading(true)
@@ -60,32 +78,55 @@ const Home = () => {
       )}
       {screenshots.length > 0 && (
         <>
-          <Carousel
-            layout="tinder"
-            layoutCardOffset={9}
-            firstItem={screenshots.length - 1}
-            inactiveSlideScale={0.94}
-            inactiveSlideOpacity={0.7}
-            hasParallaxImages
-            containerCustomStyle={styles.slider}
-            data={screenshots}
-            renderItem={({ item }) => (
-              <ScreenshotCard
-                key={item}
-                item={item}
-                screenWidth={SCREEN_WIDTH}
+          <ParallaxSwiper
+            speed={0.5}
+            animatedValue={animatedValue}
+            dividerWidth={8}
+            dividerColor="black"
+            backgroundColor="black"
+            onMomentumScrollEnd={(activePageIndex) => console.log(activePageIndex)}
+            showProgressBar
+            progressBarBackgroundColor="rgba(0,0,0,0.25)"
+            progressBarValueBackgroundColor="white"
+          >
+            {screenshots.map((image, index) => (
+              <ParallaxSwiperPage
+                key={image}
+                BackgroundComponent={
+                  <ScreenshotCard style={styles.backgroundImage} image={image} />
+                }
+                ForegroundComponent={
+                  <View style={styles.foregroundTextContainer}>
+                    <Animated.Text style={[styles.foregroundText, getPageTransformStyle(index)]}>
+                      {image}
+                    </Animated.Text>
+                  </View>
+                }
               />
-            )}
-            sliderWidth={SCREEN_WIDTH}
-            itemWidth={SCREEN_WIDTH - SCREEN_WIDTH / 10}
-            onSnapToItem={(index) => {
-              setActiveSlide(index)
-            }}
-            enableMomentum
-          />
+            ))}
+            <ParallaxSwiperPage
+              BackgroundComponent={
+                <Image
+                  style={styles.backgroundImage}
+                  source={{
+                    uri:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROOw-x6SpQur3_MGlEz4r_ydWYx2Tj528UwpibUo3NUVpGq3sW'
+                  }}
+                />
+              }
+              ForegroundComponent={
+                <View style={styles.foregroundTextContainer}>
+                  <Animated.Text
+                    style={[styles.foregroundText, getPageTransformStyle(screenshots.length - 1)]}
+                  >
+                    End
+                  </Animated.Text>
+                </View>
+              }
+            />
+          </ParallaxSwiper>
         </>
       )}
-      <Text style={{ color: '#fff' }}>{activeSlide}</Text>
       {!!error && <Text>{error}</Text>}
     </View>
   )
@@ -122,6 +163,22 @@ const styles = StyleSheet.create({
   slider: {
     marginTop: 15,
     overflow: 'visible'
+  },
+  backgroundImage: {
+    width,
+    height
+  },
+  foregroundTextContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+  foregroundText: {
+    fontSize: 34,
+    fontWeight: '700',
+    letterSpacing: 0.41,
+    color: 'white'
   }
 })
 

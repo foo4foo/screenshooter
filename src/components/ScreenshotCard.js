@@ -2,19 +2,10 @@ import React from 'react'
 import { Image } from 'react-native'
 
 type Props = {
-  item: string,
-  screenWidth: number
+  style: Object,
+  image: string
 }
 
-const ScreenshotCard = ({ item, screenWidth }: Props) => (
-  <Image
-    source={{ uri: item }}
-    resizeMode="contain"
-    style={{
-      width: screenWidth - screenWidth / 10,
-      height: 200
-    }}
-  />
-)
+const ScreenshotCard = ({ style, image }: Props) => <Image style={style} source={{ uri: image }} />
 
 export default ScreenshotCard
