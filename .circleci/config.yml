@@ -29,6 +29,7 @@ jobs:
           name: jest tests
           command: |
             mkdir -p test-results/jest
+            jest --clearCache
             yarn run test
           environment:
             JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
