@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+      Object {},
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <RNSpinkit
+      color={4278851668}
+      size={60}
+      style={
+        Array [
+          Object {
+            "height": 60,
+            "width": 60,
+          },
+          undefined,
+        ]
+      }
+      type="Wave"
+    />
+  </View>
+</View>
+`;
