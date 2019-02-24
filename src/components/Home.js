@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  ActivityIndicator,
   View,
   StyleSheet,
   TouchableOpacity,
@@ -9,6 +8,7 @@ import {
   Dimensions
 } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
+import Spinner from 'react-native-spinkit'
 import ScreenshotCard from './ScreenshotCard'
 import { get } from '../lib/storage'
 import photo from '../../assets/images/photo.png'
@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color="white" />
+        <Spinner isVisible size={60} type="9CubeGrid" color="#0a1854" />
       ) : (
         <TouchableOpacity style={styles.button} onPress={takeScreenshoot}>
           <Image source={photo} style={styles.photo} />
@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 150,
-    backgroundColor: '#183091',
+    backgroundColor: '#e6e6e6',
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: '#183091',
     height: 150,
     width: 150
   },
